@@ -1,8 +1,8 @@
 //main librarys
 const express = require('express');
 const app = express();
-const mongoose = require('mongoose');
-
+const mongoose = require('mongoose'); 
+const http = require('http').createServer(app);
 // passport librarys
 const passport = require("passport")
 const session = require("express-session")
@@ -25,7 +25,7 @@ app.use(express.static("assets"))
 const mongo = "mongodb://127.0.0.1:27017/chatroom-db";
 mongoose.connect(mongo, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
     console.log("db connected")
-    app.listen(3005, () => {
+    http.listen(3005, () => {
         console.log("server is running in port 3005")
     })
 }).catch(err => console.log(ërr))
@@ -67,3 +67,12 @@ app.get("/", (req, res) => {
 app.use(route)
 app.use(control)
 app.use(logincon)
+
+const io = require('socket.io')(http);
+
+io.on('connection',(socket)=>{
+    console.log("connected....")
+    socket.on('message', (msg) => {
+        socket.broadcast.emit('message', msg)
+    })
+})

@@ -17,7 +17,12 @@ route.get("/photo",(req,res)=>{
 })
 
 route.get("/chatroom",(req,res)=>{
-    res.render("chat.ejs")
+
+    if(req.isAuthenticated()) {
+    res.render("chat.ejs",{user:req.user.username})}
+    else{
+        res.redirect('/login')
+    }
 })
 
 

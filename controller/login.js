@@ -7,7 +7,7 @@ const passport = require("passport")
 
 // data verify from db using passport.js
 logincon.post('/log', passport.authenticate('local-login', {
-    successRedirect: '/photo',
+    successRedirect: '/chatroom',
     failureRedirect: '/login',
     failureFlash: false
 }));
