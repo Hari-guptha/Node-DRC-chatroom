@@ -22,13 +22,13 @@ app.use(express.static("views"))
 app.use(express.static("assets"))
 
 // connect mongo db compose
-const mongo = "mongodb://127.0.0.1:27017/chatroom-db";
+const mongo = "mongodb+srv://titan:titan@cluster0.enx2glq.mongodb.net/chatroom?retryWrites=true&w=majority&appName=Cluster0";
 mongoose.connect(mongo, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
     console.log("db connected")
     http.listen(3005, () => {
         console.log("server is running in port 3005")
     })
-}).catch(err => console.log(ërr))
+}).catch(err => console.log(err))
 
 // set passport to the node application
 require("./passport/passport")()
